@@ -10,8 +10,8 @@ import java.nio.file.*
 import java.io.PrintWriter
 import java.util.Random
 import java.lang.Exception
-@Serializable
-data class Data(val key:String, val a: Int, @Optional val b: String = "42", val c: Long, val d: Boolean, val e : String?)
+//@Serializable
+//data class Data(val key:String, val a: Int, @Optional val b: String = "42", val c: Long, val d: Boolean, val e : String?)
 
 fun main(args: Array<String>) = runBlocking<Unit> {
   val fileNames = Files.newDirectoryStream(Paths.get("/home/ubuntu/xvdf/okeya/raw_data/listing"), "*").map { name ->

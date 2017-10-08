@@ -10,3 +10,15 @@ and back into Kotlin.
 - OracleJDK 8(not openjdk or Oracle JDK9)
 - redis-server
 
+# ArchLinux Install of JDK
+Oracleは別途AURにあるらしいがyaourtより自分でパッケージをビルドしてしまった方がいい
+例えば、OracleJDK8はこのように行う
+```console
+$ git clone https://aur.archlinux.org/jdk8.git
+$ cd jdk8
+$ makepkg
+$ sudo pacman -U  jdk8-8u144-1-x86_64.pkg.tar.xz
+$ archlinix-java status
+$ sudo archlinux-java set java-8-jdk
+```
+このようなオペレーションが別途必要

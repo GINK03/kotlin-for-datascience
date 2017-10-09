@@ -2,7 +2,8 @@
 
 public class App {
   public static void main(String[] args) {
-    ORDataFrameKt.main(args);
+    CinemaAnalyzeKt.main(args);
+    //ORDataFrameKt.main(args);
     /*YssAdwordsParserKt(args);
     MainKt.main(args);
     CloneDemoKt.main(args);

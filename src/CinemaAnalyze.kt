@@ -11,6 +11,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.SchemaUtils.create
 import org.jetbrains.exposed.sql.SchemaUtils.drop
 
+import org.apache.commons.math3.stat.StatUtils.*
 
 import java.io.File
 import java.nio.file.*
@@ -83,6 +84,45 @@ fun getHistgram() {
     }
   }
 }
+
+fun rankingTitleStarMean() {
+  transaction { 
+    create( CinemaDataFrame ) // create table
+    CinemaDataFrame.selectAll().map {
+      val obj = JSON.parse<CinemaData>( it[CinemaDataFrame.text] )
+      obj
+    }.map { 
+      val stars = it.stars 
+      val title = it.title
+      Pair(title, stars)
+    }.filter {
+      it.second != null
+    }.groupBy { 
+      it.first
+    }.toList()
+    .sortedBy {
+      it.first
+    }.filter {
+      it.second.size >= 4
+    }.map {
+      val title = it.first
+      val arr = it.second
+      val size = arr.size
+      val valarr = arr.map { it.second!! }
+      val meanval = mean( Ext.ConvDoubleArray(ArrayList(valarr) ) )
+      val maxval = max( Ext.ConvDoubleArray(ArrayList(valarr) ) )
+      val minval = max( Ext.ConvDoubleArray(ArrayList(valarr) ) )
+      val varval = variance( Ext.ConvDoubleArray(ArrayList(valarr) ) ) 
+      //mean( ArrayList(valarr) )
+      println("$title ${meanval}")
+      Pair(title, listOf<Any>(meanval, maxval, minval, varval, size))
+    }.sortedBy {
+      it.second[0] as Double
+    }.map {
+      println("${it.first}, ${it.second}")
+    }
+  }
+}
 fun main(args: Array<String>) = runBlocking<Unit> {
   val kargs = args.toList().map { it.toString() }
   // データを永続化するにはmysqlなどをバックエンドにする
@@ -92,6 +132,7 @@ fun main(args: Array<String>) = runBlocking<Unit> {
   when {
     kargs.contains("flashDB") -> flashDB()
     kargs.contains("getHistgram") -> getHistgram()
+    kargs.contains("rankingTitleStarMean") -> rankingTitleStarMean()
     else -> null
   }
   if( kargs.contains("flashDB") )  {

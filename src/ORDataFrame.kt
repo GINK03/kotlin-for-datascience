@@ -25,6 +25,11 @@ object DataFrame : Table() {
   val id = integer("id").autoIncrement().primaryKey() // Column<Int>
   val text = varchar("text", 10000) // Column<String>
 }
+
+object HashDataFrame : Table() {
+  val id = integer("hash").primaryKey() // Column<Int>
+  val text = varchar("text", 10000) // Column<String>
+}
 fun main(args: Array<String>) = runBlocking<Unit> {
 
   // onmemory H2 database
@@ -36,21 +41,31 @@ fun main(args: Array<String>) = runBlocking<Unit> {
 
   // 問題なく復元できることの確認
   transaction { 
-    create( DataFrame ) // create table
+    create( DataFrame, HashDataFrame ) // create table
     (0..100000).map { k ->
       val key = k.toString()
-      val json = JSON.stringify(Data(key, k, "Default", 1000L, true, null)) 
-      val id = DataFrame.insert {
-        it[text] = json
-      } get DataFrame.id
-      println( id )
+      val objSrc = Data(key, k, "Default", 1000L, true, null)
+      val hash = objSrc.hashCode()
+      val json = JSON.stringify(objSrc) 
+      try {
+        HashDataFrame.insert {
+          it[id] = hash 
+          it[text] = json
+        } 
+      } catch ( e : java.sql.SQLIntegrityConstraintViolationException ) {
+        HashDataFrame.update( { HashDataFrame.id eq hash } ) {
+          it[id] = hash 
+          it[text] = json
+        } 
+      }
       val obj = JSON.parse<Data>(json)
       println( obj )
     }
-    DataFrame.selectAll().forEach { 
-      println(it[DataFrame.id])
-      val obj = JSON.parse<Data>(it[DataFrame.text])
+    HashDataFrame.selectAll().forEach { 
+      println(it[HashDataFrame.id])
+      val obj = JSON.parse<Data>(it[HashDataFrame.text])
       println( obj )
+      println( obj.hashCode() )
     }
   }
 }

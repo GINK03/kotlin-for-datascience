@@ -22,3 +22,10 @@ $ archlinix-java status
 $ sudo archlinux-java set java-8-jdk
 ```
 このようなオペレーションが別途必要
+
+# Run With Argments
+GradleでArgmentsを指定する方法がよくわからなかったが、このように実行することで実現できる
+```console
+$ ./gradlew run -Dexec.args="placeholder arg1 arg2"
+```
+長くてめんどくさいね

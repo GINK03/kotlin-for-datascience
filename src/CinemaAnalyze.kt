@@ -208,15 +208,24 @@ fun wakati() {
     Pair(index, term)
   }.toMap()
   weights.mapIndexed { index, weight ->
-    val term = indexTerm[index]!!
-    Pair(term, weight)
+    val term = indexTerm[index]
+    when { 
+      term != null -> Pair(term, weight)
+      else -> null
+    }
+  }.filter {
+    it != null
+  }.map { 
+    it!! 
+  }.sortedBy {
+    it.second*-1
   }.map {
     println(it)
   }
 }
 
 object CinemaAnalyze {
-  fun main(args: Array<String >) = runBlocking<Unit> {
+  fun main(args: Array<String >)  {
     val kargs = args.toList().map { it.toString() }
     // データを永続化するにはmysqlなどをバックエンドにする
     // DBはデータベース名で、必要に応じて変える

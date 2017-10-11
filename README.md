@@ -31,6 +31,19 @@ $ ./gradlew run -Dexec.args="placeholder arg1 arg2"
 ### TL;DR
 Kotlinを用いるデータ分析と、簡単な統計分析、一部の機械学習ができることを示します。  
 
+### Kotlinをデータサイエンスで使う
+かなり変なモチベーションであることを理解しつつ、なぜKotlinを用いるかというと、Apache Sparkで用いられるRDDというデータフレームとの類似性が挙げられます  
+Quoraという英語の質問サイトで、Kotlinはデータサイエンスとして、Pythonを脅かすかということかというと、DeepLearningやPandasなどのエコシステムの少なさと、言語として若すぎるということがあって、まだはやることはないだろうということです[1](https://www.quora.com/Will-Kotlin-replace-Python-in-data-science-and-machine-learning)  
+
+しかし、Apache Sparkで用いらているScala置き換えになるかという質問がありまして、Absolutely（絶対に）という強い表現があります。　　
+定性的な理由に以下のようなものがあります  
+
+1. 強いJavaとの相互運用性があるこ
+2. C#のプロによって作られて、Swiftとのシンタックスに似ていることから、JVM界隈に人が来やすいこと
+3. Javaを多くの点で改良していること
+
+などが挙げられています。クラスタリングなどの機械学習やHadoopやRedisを用いたデータ収集などをやっているということで、説得力があります[2](https://www.quora.com/Can-Kotlin-replace-Scala-in-data-science)
+
 
 ### ラムダ式を通して任意の結果を得る
 

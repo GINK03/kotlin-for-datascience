@@ -33,7 +33,7 @@ Kotlinを用いるデータ分析と、簡単な統計分析、一部の機械�
 
 ### Kotlinをデータサイエンスで使う
 かなり変なモチベーションであることを理解しつつ、なぜKotlinを用いるかというと、Apache Sparkで用いられるRDDというデータフレームとの類似性が挙げられます  
-Quoraという英語の質問サイトで、Kotlinはデータサイエンスとして、Pythonを脅かすかということかというと、DeepLearningやPandasなどのエコシステムの少なさと、言語として若すぎるということがあって、まだはやることはないだろうということです[1](https://www.quora.com/Will-Kotlin-replace-Python-in-data-science-and-machine-learning)  
+Quoraという英語の質問サイトで、Kotlinはデータサイエンスとして、Pythonを脅かすかということかというと、DeepLearningやPandasなどのエコシステムの少なさと、言語として若すぎるということがあって、まだはやることはないだろうということです[[1]](https://www.quora.com/Will-Kotlin-replace-Python-in-data-science-and-machine-learning)  
 
 しかし、Apache Sparkで用いらているScala置き換えになるかという質問がありまして、Absolutely（絶対に）という強い表現があります。　　
 定性的な理由に以下のようなものがあります  
@@ -42,7 +42,7 @@ Quoraという英語の質問サイトで、Kotlinはデータサイエンスと
 2. C#のプロによって作られて、Swiftとのシンタックスに似ていることから、JVM界隈に人が来やすいこと
 3. Javaを多くの点で改良していること
 
-などが挙げられています。クラスタリングなどの機械学習やHadoopやRedisを用いたデータ収集などをやっているということで、説得力があります[2](https://www.quora.com/Can-Kotlin-replace-Scala-in-data-science)
+などが挙げられています。クラスタリングなどの機械学習やHadoopやRedisを用いたデータ収集などをやっているということで、説得力があります[[2]](https://www.quora.com/Can-Kotlin-replace-Scala-in-data-science)
 
 
 ### ラムダ式を通して任意の結果を得る
@@ -75,7 +75,7 @@ groupBy: 特定のキーにてデータを転置・直列化して変換する
 
 ### Kotlinにはなくて、Scalaにある関数型の操作をライブラリで補完する
 関数合成、カリー化、バインド、オプションなどは[funKTionale]()というライブラリを用いると、使用可能になります  
-オブジェクト志向（というか命令型）と関数型はどちらに偏りがちか、という視点で見ると、KotlinはJavaより関数型的で、ScalaはKotlinより関数型的であるという解釈があるようです[3](https://www.quora.com/How-does-Kotlin-compare-to-Scala-as-a-JVM-language-with-OO-and-functional-features)
+オブジェクト志向（というか命令型）と関数型はどちらに偏りがちか、という視点で見ると、KotlinはJavaより関数型的で、ScalaはKotlinより関数型的であるという解釈があるようです[[3]](https://www.quora.com/How-does-Kotlin-compare-to-Scala-as-a-JVM-language-with-OO-and-functional-features)
 
 ```kotlin
 fun main( args : Array<String> ) {

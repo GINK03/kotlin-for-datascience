@@ -67,11 +67,39 @@ groupBy: 特定のキーにてデータを転置・直列化して変換する
 ```
 データとそれを処理するラムダ式は、圏論という数学の一分野で扱うことが可能です  
 
-例えば、[この文章を参考にする](http://choreographlife.jp/pdf/intro.pdf)と、型を導入したラムダ式は、カルテシアン閉圏と対応することがわかります  
+例えば、[この資料による](http://choreographlife.jp/pdf/intro.pdf)と、型を導入したラムダ式は、カルテシアン閉圏と対応することがわかります  
 
 完全に適応できなくても、始域や終域の制約を外した圏論の状態とも捉えられ、部分的な圏論の知識を用いることで、単射か、全射か、そのラムダ式の並びはモニックなのか、エピックなのかという視点を追加することで、一般的な理論に還元した状態で、データオペレーションを扱うことができます  
 
 これらを使いこなせ、関数の特徴を理解すると便利であり、groupByなど一部処理でメモリがマシンから溢れることがわかるので、本当にどこでマシンをスケールアウトすれば良いのかわかりやすいのと、様々な細やかなオペレーションが可能です。　　
+
+### Kotlinにはなくて、Scalaにある関数型の操作をライブラリで補完する
+関数合成、カリー化、バインド、オプションなどは[funKTionale]()というライブラリを用いると、使用可能になります  
+オブジェクト志向（というか命令型）と関数型はどちらに偏りがちか、という視点で見ると、KotlinはJavaより関数型的で、ScalaはKotlinより関数型的であるという解釈があるようです[3](https://www.quora.com/How-does-Kotlin-compare-to-Scala-as-a-JVM-language-with-OO-and-functional-features)
+
+```kotlin
+fun main( args : Array<String> ) {
+  // 関数の合成（左から右）
+  val add = { a:Int -> a + 5 }
+  val multiply = { a:Int -> a*3 }
+  val add_multiply = add forwardCompose multiply
+  println( add_multiply(2) ) // (2 + 5) * 3
+
+　// 関数の合成（右から左）
+  val multiply_add = add compose multiply
+  println( multiply_add(2) ) // 2*3 + 5
+
+  // 特的の引数に値を束縛する
+  val addp = { a:Int,b:Int,c:Int -> a*b*c }
+  val build_addp = addp.partially2(3)
+  println( build_addp.partially1(5)(2) )
+
+  //　カリー化
+  val sumint = {a:Int, b:Int, c:Int -> a+b+c}
+  val curry:(Int)->(Int)->(Int)->Int = sumint.curried()
+  println("curried result ${curry(1)(2)(3)}")
+}
+```
 
 ### データの永続化と、DSL SQLによるデータ操作
 #### Kotlinx Exposed
@@ -126,13 +154,13 @@ CinemaDataFrame.selectAll().groupBy(CinemaDataFrame.someInt)).forEach {
 }
 ```
 
- ### データ構造のシリアライズとデシリアライズ
- #### Kotlinx Serialization
- 様々なデータオブジェクトのシリアライズした内容を保存しておくことで、あたかも一つのクラス・オブジェクトを平文にしてマシン間の転送や、先ほどのSQLを利用することで、オブジェクト丸ごとの永続化などを行うことができます　　
+### データ構造のシリアライズとデシリアライズ
+#### Kotlinx Serialization
+様々なデータオブジェクトのシリアライズした内容を保存しておくことで、あたかも一つのクラス・オブジェクトを平文にしてマシン間の転送や、先ほどのSQLを利用することで、オブジェクト丸ごとの永続化などを行うことができます　　
  
- JavaScriptのオブジェクトのシリアライザ・デシリアライザであるJSON.stringfy、JSON.parseというそのままの関数が使える便利な[Kotlinx Serialization](https://github.com/Kotlin/kotlinx.serialization)というものがあります。  
+JavaScriptのオブジェクトのシリアライザ・デシリアライザであるJSON.stringfy、JSON.parseというそのままの関数が使える[Kotlinx Serialization](https://github.com/Kotlin/kotlinx.serialization)というものがあります。  
  
- Kotlinx Serializationではdata classと呼ばれるセッターゲッターなどが色々まとまったclassの定義の上に@でノーテーションをつけることで、シリアライズ可能になります
+Kotlinx Serializationではdata classと呼ばれるセッターゲッターなどが色々まとまったclassの定義の上に@でノーテーションをつけることで、シリアライズ可能になります
 ```kotlin
 import kotlinx.serialization.*
 import kotlinx.serialization.json.JSON
@@ -171,7 +199,7 @@ fun deserialize(json: String) {
 }
 ```
 
-### PureJVM形態素解析
+### PureJVMによる形態素解析
 #### Kuromoji Neologd
 幾人かの人が[形態素解析のライブラリ](https://github.com/atilika/kuromoji)を提供してくださっているおかげで、neologdなどの最新の辞書を追加した状態で、JVMのみで形態素解析が可能になりました  
 githubから該当のプロジェクトをクローンしてmvn packageで一つにまとめたパッケージを作ることで簡単に再利用可能なjarファイルを得ることができます　　
@@ -205,9 +233,9 @@ BUILD SUCCESSFUL
 
 ### mean, variance, mode,  normalize, chi square testなどを求める
 
-Javaの統計ツールである、StatUtilsが用いられるのですがこのように用いることができます  
+Javaの統計ライブラリである、StatUtilsが用いられるのですがこのように用いることができます  
 
-Chi Square Testなどは、[事象の発生回数をカウント](http://www.statisticshowto.com/probability-and-statistics/chi-square/)していけば、p-valueを返却してくれるので、この値が十分小さければ(例えば0.05以下)、有意であると言えそうです　　
+Chi Square Test（カイ二乗検定）などは、[事象の発生回数をカウント](http://www.statisticshowto.com/probability-and-statistics/chi-square/)していけば、p-valueを返却してくれるので、この値が十分小さければ(例えば0.05以下)、有意であると言えそうです　　
 
 試しに、[randomを二回重ねて、少しだけコクのある乱数](https://togetter.com/li/1044668)にすると、p-valueは0になり、ただのrandomとは異なり、別の事象であるということができそうです。
 ```kotlin

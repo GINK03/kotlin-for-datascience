@@ -26,10 +26,10 @@ $ ./gradlew run -Dexec.args="placeholder arg1 arg2"
 
 =================
 
-## Kotlin Machine Learning
+## Kotlin for DataScience
 
 ### TL;DR
-Kotlinを用いるデータ分析と、簡単な統計分析、一部の機械学習ができることを示します。  
+Kotlinを用いるデータ分析と、簡単な統計分析、一部の機械学習などのデータサイエンスができることを示します。  
 
 ### Kotlinをデータサイエンスで使う
 かなり変なモチベーションであることを理解しつつ、なぜKotlinを用いるかというと、Apache Sparkで用いられるRDDというデータフレームとの類似性が挙げられます  
@@ -74,7 +74,59 @@ groupBy: 特定のキーにてデータを転置・直列化して変換する
 
 これらを使いこなせ、関数の特徴を理解すると便利であり、groupByなど一部処理でメモリがマシンから溢れることがわかるので、本当にどこでマシンをスケールアウトすれば良いのかわかりやすいのと、様々な細やかなオペレーションが可能です。　　
 
+### Kotlinに入っている組み込み関数でRDDのような簡単なデータオペレーションの例
+Userという性別(sex)、年齢(age)、名前(name)の三つのフィールドのテーブルがあったとします  
+
+```kotlin
+data class User(val sex:String, val age:Int, val name:String)
+```
+
+このテーブルはKotlinのリテラルではこのように表現されます  
+このデータに対してデータ操作を行っていきます  
+```kotlin
+val userList = listOf( 
+  User("man", 10, "Alison Doe"),
+  User("man", 22, "Bob Doe"), 
+  User("woman", 12, "Alice Doe"),
+  User("woman", 26, "Claris Doe"),
+  User("woman", 17, "Dolly Doe")
+)
+```
+
+20歳以上は何％か計算する 
+```kotlin
+val over20 = userList.filter { it.age >= 20 }.size.toDouble() / userList.size
+println("20歳以上は${over20*100}%です")
+-> 20歳以上は40.0%です
+```
+
+男性と女性のそれぞれの平均年齢を計算する
+```
+userList.groupBy {
+  it.sex
+}.toList().map {
+  val sex = it.first 
+} val arr = it.second
+  val mean = arr.map{it.age}.reduce {y,x -> y+x} / arr.size
+  println("性別, ${sex}の平均年齢は${mean}歳です")
+}
+性別, manの平均年齢は16歳です
+性別, womanの平均年齢は18歳です
+```
+
+Doeさん一家の名字をSmithに変える
+```kotlin
+userList.map {
+  User(it.sex, it.age, it.name.replace("Doe", "Smith") )
+}.map(::println)
+User(sex=man, age=10, name=Alison Smith)
+User(sex=man, age=22, name=Bob Smith)
+User(sex=woman, age=12, name=Alice Smith)
+User(sex=woman, age=26, name=Claris Smith)
+User(sex=woman, age=17, name=Dolly Smith)
+```
 ### Kotlinにはなくて、Scalaにある関数型の操作をライブラリで補完する
+標準で組み込まれている
 関数合成、カリー化、バインド、オプションなどは[funKTionale]()というライブラリを用いると、使用可能になります  
 オブジェクト志向（というか命令型）と関数型はどちらに偏りがちか、という視点で見ると、KotlinはJavaより関数型的で、ScalaはKotlinより関数型的であるという解釈があるようです[[3]](https://www.quora.com/How-does-Kotlin-compare-to-Scala-as-a-JVM-language-with-OO-and-functional-features)
 

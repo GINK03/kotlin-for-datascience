@@ -26,7 +26,7 @@ $ ./gradlew run -Dexec.args="placeholder arg1 arg2"
 
 =================
 
-## Kotlin for DataScience
+# Kotlin for DataScience
 
 ### TL;DR
 Kotlinを用いるデータ分析と、簡単な統計分析、一部の機械学習などのデータサイエンスができることを示します。  

@@ -97,7 +97,7 @@ val userList = listOf(
 ```kotlin
 val over20 = userList.filter { it.age >= 20 }.size.toDouble() / userList.size
 println("20歳以上は${over20*100}%です")
--> 20歳以上は40.0%です
+(出力->) 20歳以上は40.0%です
 ```
 
 男性と女性のそれぞれの平均年齢を計算する
@@ -110,8 +110,8 @@ userList.groupBy {
   val mean = arr.map{it.age}.reduce {y,x -> y+x} / arr.size
   println("性別, ${sex}の平均年齢は${mean}歳です")
 }
-性別, manの平均年齢は16歳です
-性別, womanの平均年齢は18歳です
+(出力->) 性別, manの平均年齢は16歳です
+(出力->) 性別, womanの平均年齢は18歳です
 ```
 
 Doeさん一家の名字をSmithに変える
@@ -119,15 +119,17 @@ Doeさん一家の名字をSmithに変える
 userList.map {
   User(it.sex, it.age, it.name.replace("Doe", "Smith") )
 }.map(::println)
-User(sex=man, age=10, name=Alison Smith)
-User(sex=man, age=22, name=Bob Smith)
-User(sex=woman, age=12, name=Alice Smith)
-User(sex=woman, age=26, name=Claris Smith)
-User(sex=woman, age=17, name=Dolly Smith)
+(出力->) User(sex=man, age=10, name=Alison Smith)
+(出力->) User(sex=man, age=22, name=Bob Smith)
+(出力->) User(sex=woman, age=12, name=Alice Smith)
+(出力->) User(sex=woman, age=26, name=Claris Smith)
+(出力->) User(sex=woman, age=17, name=Dolly Smith)
 ```
 ### Kotlinにはなくて、Scalaにある関数型の操作をライブラリで補完する
-標準で組み込まれている
+標準で組み込まれている関数以外にも、より強い関数型の操作ができるようになるライブラリが提供されています  
+
 関数合成、カリー化、バインド、オプションなどは[funKTionale]()というライブラリを用いると、使用可能になります  
+
 オブジェクト志向（というか命令型）と関数型はどちらに偏りがちか、という視点で見ると、KotlinはJavaより関数型的で、ScalaはKotlinより関数型的であるという解釈があるようです[[3]](https://www.quora.com/How-does-Kotlin-compare-to-Scala-as-a-JVM-language-with-OO-and-functional-features)
 
 ```kotlin

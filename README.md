@@ -39,7 +39,7 @@ Quoraという英語の質問サイトで、Kotlinはデータサイエンスと
 
 定性的な理由に以下のようなものがあります  
 
-1. 強いJavaとの相互運用性があるこ
+1. 強いJavaとの相互運用性があること
 2. C#のプロによって作られて、Swiftとのシンタックスに似ていることから、JVM界隈に人が来やすいこと
 3. Javaを多くの点で改良していること
 
@@ -341,15 +341,15 @@ interfaceは当然、Javaなのですが、KotlinがJavaと互換性があるお
 例えば、2クラス分類ではこのようにすることで行えます  
 この例ではliblinear フォーマットに従った出力を/tmp/logregwrapperに出力して、それで学習しています
 ```kotlin
-    PrintWriter("/tmp/logregwrapper").append(text).close()
-    val prob = Problem.readFromFile( File("/tmp/logregwrapper"), -1.0)
-    val solver = SolverType.MCSVM_CS // -s 0
-          val C = 100.0 // cost of constraints violation
-          val eps = 0.001 // stopping criteria
-    val parameter = Parameter(solver, C, eps)
-    val model:Model = Linear.train(prob, parameter)
+PrintWriter("/tmp/logregwrapper").append(text).close()
+val prob = Problem.readFromFile( File("/tmp/logregwrapper"), -1.0)
+val solver = SolverType.MCSVM_CS // -s 0
+val C = 100.0 // cost of constraints violation
+val eps = 0.001 // stopping criteria
+val parameter = Parameter(solver, C, eps)
+val model:Model = Linear.train(prob, parameter)
 
-    val featWeights:List<Double> = model.getFeatureWeights().toList()
+val featWeights:List<Double> = model.getFeatureWeights().toList()
 ```
 
 ### まとめ

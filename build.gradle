@@ -15,7 +15,7 @@
  */
 
 buildscript {
-  ext.kotlin_version = '1.1.50'
+  ext.kotlin_version = '1.1.51'
   ext.serialization_version = '0.1.1'
 
   repositories {
@@ -31,6 +31,8 @@ buildscript {
     classpath "org.xerial:sqlite-jdbc:3.20.0"
     classpath "com.h2database:h2:1.4.196"
     classpath "mysql:mysql-connector-java:6.0.6"
+    classpath files('resources/kuromoji-ipadic-neologd-1.0-SNAPSHOT.jar')
+    classpath fileTree(dir: 'resources', include: '*.jar')
   }
 }
 
@@ -43,6 +45,9 @@ repositories {
   maven { url "https://kotlin.bintray.com/kotlinx" }
   maven { url "https://bintray.com" }
   maven { url "https://dl.bintray.com/kotlin/exposed/" }
+  //flatDir {
+  //  dirs 'resources'
+  //}
 }
 
 sourceSets {
@@ -67,11 +72,31 @@ dependencies {
   compile "mysql:mysql-connector-java:6.0.6"
   compile 'org.apache.commons:commons-math3:3.6.1'
   compile 'org.apache.commons:commons-lang3:3.6'
+  compile 'de.bwaldvogel:liblinear:+'
+  compile files('resources/kuromoji-ipadic-neologd-1.0-SNAPSHOT.jar', 'resources/kuromoji-core-1.0-SNAPSHOT.jar', 'resources/kuromoji-ipadic-1.0-SNAPSHOT.jar')
+  compile fileTree(dir: 'resources', include: '*.jar')
+
+  // functional libraries of Kotlins
+  compile 'org.funktionale:funktionale-collections:+'
+  compile 'org.funktionale:funktionale-complement:+'
+  compile 'org.funktionale:funktionale-composition:+'
+  compile 'org.funktionale:funktionale-currying:+'
+  compile 'org.funktionale:funktionale-memoization:+'
+  compile 'org.funktionale:funktionale-pairing:+'
+  compile 'org.funktionale:funktionale-partials:+'
+  compile 'org.funktionale:funktionale-reverse:+'
+  compile 'org.funktionale:funktionale-utils:+'
+  compile 'org.funktionale:funktionale-option:+'
+  compile 'org.funktionale:funktionale-either:+'
+  compile 'org.funktionale:funktionale-validation:+'
+  compile 'org.funktionale:funktionale-try:+'
+  compile 'org.funktionale:funktionale-state:+'
+  compile 'org.funktionale:funktionale-pipe:+'
 }
 
 task runApp(type: JavaExec) {
-  classpath = sourceSets.main.compileClasspath + sourceSets.main.runtimeClasspath
+  classpath = sourceSets.main.compileClasspath + sourceSets.main.runtimeClasspath 
   args System.getProperty("exec.args").split() 
   workingDir = "$projectDir/build/classes/main"
-  main = 'App'
+  main = 'AppKt'
 }

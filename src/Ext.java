@@ -1,5 +1,6 @@
 import org.apache.commons.lang3.ArrayUtils;
 import java.util.*;
+import de.bwaldvogel.liblinear.*;
 public class Ext {
   static double[] ConvDoubleArray(ArrayList<Double> alist) { 
     //return ArratUtils.toObject(alist);
@@ -9,6 +10,5 @@ public class Ext {
       doubleArray[i] = d;
     }
     return doubleArray;
-
   }
 }

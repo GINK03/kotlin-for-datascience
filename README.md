@@ -1,4 +1,4 @@
-# Example Kotlin dataframe desings
+# Kotlin For Datascience
 
 # Requirements
 - OracleJDK 8(not openjdk or Oracle JDK9)
@@ -351,3 +351,10 @@ interfaceは当然、Javaなのですが、KotlinがJavaと互換性があるお
 
     val featWeights:List<Double> = model.getFeatureWeights().toList()
 ```
+
+### まとめ
+RDDのような専用のフレームワークを使わなくても、一台のマシンならばユーザ定義型で、シリアライズなしに関数間のデータ構造の移動ができるので便利です。（ビッグデータになると、RDDのようなフレームワークに載せる必要があります）  
+
+この構造は、畳み込み関数を任意にユーザが動作を定義できたり、複雑にgroupByして、groupByして、何かしらの値を求めて、、、といった操作に対して柔軟な操作ができるので優れいていると考えています  
+
+基本的には、メモリ上に溜め込む必要がある操作（groupBy, reduceでリストを作る, setを作りユニークにする）など以外は大きなデータでも処理できるので、処理ロジックに応じてどこがオーバーヘッドなのか理解しやすいなどのメリットがあります  

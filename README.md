@@ -437,3 +437,6 @@ object SparkMLGBT {
 2. SparlMLを利用して幾つかの判別ができることを示しました
 
 心象としてはJavaよりまし
+
+## 参考
+- [1] [Machine Learning Library (MLlib) Guide](https://spark.apache.org/docs/2.2.0/ml-guide.html)

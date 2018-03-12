@@ -9,6 +9,8 @@ fun main(args : Array<String>) {
     kargs.contains("stat") -> Stat.main(args)
     kargs.contains("funktionale") -> Funktionale.main(args)
     kargs.contains("yssadwords") -> YssAdwordsParser.main(args)
+    kargs.contains("logisticregression") -> SparkMLLogisticRegression.main(args)
+    kargs.contains("gbt") -> SparkMLGBT.main(args)
     else -> null
   }
 }

@@ -61,6 +61,7 @@ dependencies {
   compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
   compile "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
   compile "redis.clients:jedis:2.9.0"
+  compile group: 'org.apache.spark', name: 'spark-mllib_2.11', version: '2.3.0'
   compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.19"
   compile "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:0.19"
   compile "org.jetbrains.kotlinx:atomicfu-transformer:+"

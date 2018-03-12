@@ -294,7 +294,7 @@ Chi Square Test（カイ二乗検定）などは、[事象の発生回数をカ�
 
 試しに、[randomを二回重ねて、少しだけコクのある乱数](https://togetter.com/li/1044668)にすると、p-valueは0になり、ただのrandomとは異なり、別の事象であるということができそうです。
 ```kotlin
-mport java.util.Random
+import java.util.Random
 import org.apache.commons.math3.stat.*
 import org.apache.commons.math3.stat.inference.ChiSquareTest
 object Stat {

@@ -1,49 +1,11 @@
-# Kotlin For Datascience
-
-# Requirements
-- OracleJDK 8(not openjdk or Oracle JDK9)
-- redis-server
-
-# ArchLinux Install of JDK
-Oracleは別途AURにあるらしいがyaourtより自分でパッケージをビルドしてしまった方がいい
-例えば、OracleJDK8はこのように行う
-```console
-$ git clone https://aur.archlinux.org/jdk8.git
-$ cd jdk8
-$ makepkg
-$ sudo pacman -U  jdk8-8u144-1-x86_64.pkg.tar.xz
-$ archlinix-java status
-$ sudo archlinux-java set java-8-jdk
-```
-このようなオペレーションが別途必要
-
-# Run With Argments
-GradleでArgmentsを指定する方法がよくわからなかったが、このように実行することで実現できる
-```console
-$ ./gradlew run -Dexec.args="placeholder arg1 arg2"
-```
-長くてめんどくさいね
-
-=================
-
 # Kotlin for DataScience
 
 ### TL;DR
 Kotlinを用いるデータ分析と、簡単な統計分析、一部の機械学習などのデータサイエンスができることを示します。  
 
 ### Kotlinをデータサイエンスで使う
-かなり変なモチベーションであることを理解しつつ、なぜKotlinを用いるかというと、Apache Sparkで用いられるRDDというデータフレームとの類似性が挙げられます  
+なぜKotlinを用いるかというと、Apache Sparkで用いられるRDDというデータフレームとの類似性が挙げられます  
 Quoraという英語の質問サイトで、Kotlinはデータサイエンスとして、Pythonを脅かすかということかというと、DeepLearningやPandasなどのエコシステムの少なさと、言語として若すぎるということがあって、まだはやることはないだろうということです[[1]](https://www.quora.com/Will-Kotlin-replace-Python-in-data-science-and-machine-learning)  
-
-しかし、Apache Sparkで用いらているScala置き換えになるかという質問がありまして、Absolutely（絶対に）という強い表現があります  
-
-定性的な理由に以下のようなものがあります  
-
-1. 強いJavaとの相互運用性があること
-2. C#のプロによって作られて、Swiftとのシンタックスに似ていることから、JVM界隈に人が来やすいこと
-3. Javaを多くの点で改良していること
-
-などが挙げられています。クラスタリングなどの機械学習やHadoopやRedisを用いたデータ収集などをやっているということで、説得力があります[[2]](https://www.quora.com/Can-Kotlin-replace-Scala-in-data-science)
 
 
 ### ラムダ式を通して任意の結果を得る

@@ -1,14 +1,16 @@
 # Kotlin for DataScience
 
 ### TL;DR
-Kotlinを用いるデータ分析と、簡単な統計分析、一部の機械学習などのデータサイエンスができることを示します。  
+サーバサイド
 
-### Kotlinをデータサイエンスで使う
+
+### Kotlinをデータサイエンスをする
 なぜKotlinを用いるかというと、Apache Sparkで用いられるRDDというデータフレームとの類似性が挙げられます  
-Quoraという英語の質問サイトで、Kotlinはデータサイエンスとして、Pythonを脅かすかということかというと、DeepLearningやPandasなどのエコシステムの少なさと、言語として若すぎるということがあって、まだはやることはないだろうということです[[1]](https://www.quora.com/Will-Kotlin-replace-Python-in-data-science-and-machine-learning)  
+
+Kotlinはデータサイエンスとして、Pythonを脅かすかということかというと、DeepLearningやPandasなどのエコシステムの少なさと、言語として若すぎるということがあって、まだはやることはないだろうということです
 
 
-### ラムダ式を通して任意の結果を得る
+### ラムダ式を通して任意の結果を得る(リライト候/補)
 
 KotlinはApache Sparkで用いられているScalaのシンタックスの流れを汲んでおり、複雑なデータ操作が可能です　　
 
